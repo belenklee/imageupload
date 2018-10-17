@@ -32,7 +32,7 @@
 .page-dialog .description-box{ border-radius: 4px; left: -360px; top: 190px; background: #fff; width: 360px; padding: 15px; box-shadow: 0px 0 12px 0px rgba(0, 0, 0, 0.20); }
 .page-dialog .description-box .description-header{ margin: 5px 0 12px; line-height: 16px; }
 .page-dialog .description-box .description-header .header-title{ font-weight: bold; float: left; font-size: 14px; }
-.page-dialog .description-box .description-header .count-tips{ float: right; }
+.page-dialog .description-box .description-header .count-tips{ float: right; font-size: 12px; }
 .page-dialog .description-box .description-header .count-tips em{ color: #333; font-style: italic; }
 .page-dialog .description-box .description-header .count-tips.exceeded em{ color: #f00; }
 .page-dialog .description-box .description-edit{ width: 100%; height: 127px; box-sizing: border-box; padding: 8px 12px; line-height: 1.5; background: #eee; border: 1px solid #eee; outline: none; resize: vertical; color: #666; }

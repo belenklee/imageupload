@@ -34,3 +34,5 @@
 
 .page-form { }
 .page-form .row { margin: 20px 0; }
+
+.placeHolder { background-color: #fff; !important; border: dashed 2px #ddd !important; box-sizing: border-box; }
