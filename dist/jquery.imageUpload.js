@@ -181,14 +181,14 @@
                             var text = imagedata[settings.resultKey] ? '上传成功' : '上传失败';
                             console.log(text + '：' + imagedata[settings.resultKey]);
                             //当收到该消息时上传完毕
-                            $li.find(".progress span").css('height', 0);
-                            $li.find(".progress .pecent").text("").hide();
-                            $li.find(".progress").append('<em><i class="success"></i><p>上传成功</p></em>');
-                            $li.find(".progress em").css({
-                                'top': $li.find(".progress").height() / 2 - $li.find(".progress em").height() / 2,
-                                'left': $li.find(".progress").width() / 2 - $li.find(".progress em").width() / 2
+                            $li.find(".upload-progress span").css('height', 0);
+                            $li.find(".upload-progress .pecent").text("").hide();
+                            $li.find(".upload-progress").append('<em><i class="success"></i><p>上传成功</p></em>');
+                            $li.find(".upload-progress em").css({
+                                'top': $li.find(".upload-progress").height() / 2 - $li.find(".upload-progress em").height() / 2,
+                                'left': $li.find(".upload-progress").width() / 2 - $li.find(".upload-progress em").width() / 2
                             });
-                            setTimeout(function(){$li.find(".progress em").fadeOut(200)},1000);
+                            setTimeout(function(){$li.find(".upload-progress em").fadeOut(200)},1000);
                             if (!imagedata[settings.resultKey]) return;
                             // $li.data("path", imagedata[settings.resultKey]);
                             $li.addClass("success").append(
@@ -251,12 +251,12 @@
                             }
                         },
                         error: function(){
-                            $li.find(".progress span").css('height', 0);
-                            $li.find(".progress .pecent").text("").hide();
-                            $li.find(".progress").append('<em><i class="failed"></i><p>上传失败</p></em>');
-                            $li.find(".progress em").css({
-                                'top': $li.find(".progress").height() / 2 - $li.find(".progress em").height() / 2,
-                                'left': $li.find(".progress").width() / 2 - $li.find(".progress em").width() / 2
+                            $li.find(".upload-progress span").css('height', 0);
+                            $li.find(".upload-progress .pecent").text("").hide();
+                            $li.find(".upload-progress").append('<em><i class="failed"></i><p>上传失败</p></em>');
+                            $li.find(".upload-progress em").css({
+                                'top': $li.find(".upload-progress").height() / 2 - $li.find(".upload-progress em").height() / 2,
+                                'left': $li.find(".upload-progress").width() / 2 - $li.find(".upload-progress em").width() / 2
                             });
                         },
                         xhr: function() {
@@ -267,10 +267,10 @@
                                 xhr.upload.addEventListener('progress', function (e) {
                                     if (e.lengthComputable) {
                                         pecent = e.loaded / e.total * 100;
-                                        $li.find(".progress span").css('height', 100 - pecent + "%");
-                                        $li.find(".progress .pecent").text(parseInt(pecent) + "%").css({
-                                            'top': $li.find(".progress").height() / 2 - $li.find(".progress .pecent").height() / 2,
-                                            'left': $li.find(".progress").width() / 2 - $li.find(".progress .pecent").width() / 2
+                                        $li.find(".upload-progress span").css('height', 100 - pecent + "%");
+                                        $li.find(".upload-progress .pecent").text(parseInt(pecent) + "%").css({
+                                            'top': $li.find(".upload-progress").height() / 2 - $li.find(".upload-progress .pecent").height() / 2,
+                                            'left': $li.find(".upload-progress").width() / 2 - $li.find(".upload-progress .pecent").width() / 2
                                         });
                                     }
                                 }, false);
@@ -521,7 +521,7 @@
                                     '<div class="delete" title="删除"></div>' +
                                     (settings.zoomable ? '<div class="zoom" title="缩放"></div>' : '') +
                                 '</div>' +
-                                '<div class="progress">' +
+                                '<div class="upload-progress">' +
                                     '<span></span>' +
                                     '<div class="pecent"></div>' +
                                 '</div>';
