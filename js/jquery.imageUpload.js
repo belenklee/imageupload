@@ -1,4 +1,5 @@
 /**
+ * jquery.imageUpload.js v1.0.0
  * Created by Belenk Lee on 2017/9/7.
  * Last update by 2018/10/15.
  */
@@ -52,12 +53,23 @@
                     //图片质量控制(0.1 ~ 1)
                     quality: .5
                 },
+                //存放缩略图路径
+                thumbnail: {
+                    //是否启用，默认：false
+                    enable: false,
+                    //自定义上传返回key值
+                    resultKey: "thumbPath",
+                    //提交路径字段名
+                    thumbInputName: "thumbPath"
+                },
                 //图片描述功能
                 description: {
-                    //是否开启，默认：开
-                    enable: true,
+                    //是否开启，默认：false
+                    enable: false,
                     //描述内容字段名
                     descInputName: "description",
+                    //默认value
+                    defaultValue: "",
                     //空内容提示
                     placeholder: "请输入该图片描述...",
                     //描述字数限制
@@ -112,11 +124,13 @@
                         {
                             namespace: "",
                             path: "../../images/demo/test/20160912003659690.jpg",
+                            thumbPath: "../../images/demo/test/20160912003659690.jpg",
                             description: "这是第一张图片"
                         },
                         {
                             namespace: "",
                             path: "../../images/demo/test/aeolian_by_wlop-d9ctyhy.jpg",
+                            thumbPath: "../../images/demo/test/20160912003659690.jpg",
                             description: "这是第二张图片"
                         }
                     ]
@@ -194,9 +208,14 @@
                             $li.addClass("success").append(
                                 '<input class="path-input" name="' + settings.imageInputName + '" type="text" value="' + imagedata[settings.resultKey] + '" style="display: none;"/>'
                             );
+                            if(settings.thumbnail.enable){
+                                $li.addClass("success").append(
+                                    '<input class="thumb-path-input" name="' + settings.thumbnail.thumbInputName + '" type="text" value="' + imagedata[settings.thumbnail.resultKey] + '" style="display: none;"/>'
+                                );
+                            }
                             if(settings.description.enable){
                                 $li.append(
-                                    '<div class="mask">添加描述</div><input class="description-input" name="' + settings.description.descInputName + '" type="text" value="" style="display: none;"/>'
+                                    '<div class="mask">添加描述</div><textarea class="description-input" name="' + settings.description.descInputName + '" type="text" style="display: none;">' + settings.description.defaultValue + '</textarea>'
                                 );
                                 $li.find('.mask').mousedown(function(e){
                                     e.stopPropagation();
@@ -208,7 +227,7 @@
                                     html += '<div class="header-title">描述</div>';
                                     html += '<div class="count-tips">剩余字符：<em>' + settings.description.allowed + '</em></div>';
                                     html += '</div>';
-                                    html += '<textarea class="description-edit" placeholder="' + settings.description.placeholder + '">' + $descInput.val() + '</textarea> ';
+                                    html += '<textarea class="description-edit" placeholder="' + settings.description.placeholder + '">' + utils.decodeTextAreaString($descInput.val()) + '</textarea> ';
                                     html += '<div class="description-group">';
                                     html += '<div class="description-btn button btn-primary btn-confirm">确定</div> <div class="description-btn button btn-normal btn-cancel">取消</div>';
                                     html += '</div>';
@@ -234,13 +253,13 @@
                                         if(settings.description.allowed - $textarea.val().length < 0){
                                             $textarea.addClass("warning");
                                         }else{
-                                            $descInput.val($('.page-dialog .description-box .description-edit').val());
+                                            $descInput.val(utils.encodeTextAreaString($('.page-dialog .description-box .description-edit').val()));
                                             $('.page-dialog').remove();
                                             $textarea.removeClass("warning");
                                         }
                                     });
 
-                                    $('.page-dialog .btn-cancel').click(function(){
+                                    $('.page-dialog .btn-cancel, .page-dialog .page-mask').click(function(){
                                         $('.page-dialog').remove();
                                     });
                                 });
@@ -397,11 +416,14 @@
                                     li +=       '<div class="zoom" title="缩放"></div>';
                                 }
                                 li +=   '</div>';
+                                li +=   '<input class="path-input" name="' + settings.imageInputName + '" type="text" value="' + (typeof(settings.data.imageData[i][settings.resultKey]) == "undefined" ? "" : settings.data.imageData[i][settings.resultKey]) + '" style="display: none;"/>'
+                                if(settings.thumbnail.enable){
+                                    li +=   '<input class="thumb-path-input" name="' + settings.thumbnail.thumbInputName + '" type="text" value="' + (typeof(settings.data.imageData[i][settings.thumbnail.resultKey]) == "undefined" ? "" : settings.data.imageData[i][settings.thumbnail.resultKey]) + '" style="display: none;"/>'
+                                }
                                 if(settings.description.enable){
                                     li +=   '<div class="mask">添加描述</div>';
-                                    li +=   '<input class="description-input" name="' + settings.description.descInputName + '" type="text" value="' + (typeof(settings.data.imageData[i].description) == "undefined" ? "" : settings.data.imageData[i].description) + '" style="display: none;"/>'
+                                    li +=   '<textarea class="description-input" name="' + settings.description.descInputName + '" type="text" style="display: none;">' + (typeof(settings.data.imageData[i].description) == "undefined" ? settings.description.defaultValue : settings.data.imageData[i].description) + '</textarea>'
                                 }
-                                li +=   '<input class="path-input" name="' + settings.imageInputName + '" type="text" value="' + (typeof(settings.data.imageData[i].path) == "undefined" ? "" : settings.data.imageData[i][settings.resultKey]) + '" style="display: none;"/>'
                                 li += '</li>';
                             }
                             $content.find('.img-list').append($(li));
@@ -435,7 +457,7 @@
                             html += '<div class="header-title">描述</div>';
                             html += '<div class="count-tips">剩余字符：<em>' + settings.description.allowed + '</em></div>';
                             html += '</div>';
-                            html += '<textarea class="description-edit" placeholder="' + settings.description.placeholder + '">' + $descInput.val() + '</textarea> ';
+                            html += '<textarea class="description-edit" placeholder="' + settings.description.placeholder + '">' + utils.decodeTextAreaString($descInput.val()) + '</textarea> ';
                             html += '<div class="description-group">';
                             html += '<div class="description-btn button btn-primary btn-confirm">确定</div> <div class="description-btn button btn-normal btn-cancel">取消</div>';
                             html += '</div>';
@@ -461,13 +483,13 @@
                                 if(settings.description.allowed - $textarea.val().length < 0){
                                     $textarea.addClass("warning");
                                 }else{
-                                    $descInput.val($('.page-dialog .description-box .description-edit').val());
+                                    $descInput.val(utils.encodeTextAreaString($('.page-dialog .description-box .description-edit').val()));
                                     $('.page-dialog').remove();
                                     $textarea.removeClass("warning");
                                 }
                             });
 
-                            $('.page-dialog .btn-cancel').click(function () {
+                            $('.page-dialog .btn-cancel, .page-dialog .page-mask').click(function () {
                                 $('.page-dialog').remove();
                             });
                         });
@@ -653,17 +675,37 @@
                             oldSend.call(this, val);
                         }
                     };
+                },
+
+                /**
+                * 根据Value格式化为带有换行、空格，引号格式的HTML代码
+                * @param strValue {String} 需要转换的值
+                * @return  {String}转换后的HTML代码
+                * @example
+                * encodeTextAreaString("测\r\n\s试")  =>  “测<br/> 试”
+                */
+                encodeTextAreaString: function(str){
+                    return str .replace(/\r\n/g, '<br/>')
+                        .replace(/\n/g, '<br/>')
+                        .replace(/\s\s/g, ' &nbsp;');
+
+                },
+
+                decodeTextAreaString: function(str){
+                    return str .replace(/<br\/>/ig, '\n')
+                        .replace(/ &nbsp;/g, '  ');
                 }
             };
 
             //销毁方法
             if (options == "destroy") {
                 imageUpload.uninit();
-                return;
+                return $element;
             }
             else{
                 //入口方法
                 imageUpload.init();
+                return $element;
             }
         }
     })

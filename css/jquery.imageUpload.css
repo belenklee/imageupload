@@ -13,14 +13,14 @@
 .upload-image.default-skin .img-list li .drag-wrapper{ position: relative; width: 100%; height: 100%; z-index: 1; cursor: move; }
 .upload-image.default-skin .img-list li .button-group{ display: block; z-index: 2; position: absolute; top: 6px; right: 6px; box-sizing: border-box; opacity: 0; filter:Alpha(opacity=0); }
 .upload-image.default-skin .img-list li:hover .button-group{ opacity: 1; filter:Alpha(opacity=100); }
-.upload-image.default-skin .img-list li .delete{ cursor: pointer; width: 22px; height: 22px; background: #fff url(images/img_upload.png) 0 -80px no-repeat; border-radius: 50%; }
-.upload-image.default-skin .img-list li .delete:hover{ background: #fff url(images/img_upload.png) 0 -60px no-repeat; }
-.upload-image.default-skin .img-list li .zoom{ margin-top: 6px; cursor: pointer; width: 22px; height: 22px; background: #fff url(images/img_upload.png) 0 -120px no-repeat; border-radius: 50%; }
-.upload-image.default-skin .img-list li .zoom:hover{ background: #fff url(images/img_upload.png) 0 -100px no-repeat; }
+.upload-image.default-skin .img-list li .delete{ cursor: pointer; width: 22px; height: 22px; background: #fff url(../img/img_upload.png) 0 -80px no-repeat; border-radius: 50%; }
+.upload-image.default-skin .img-list li .delete:hover{ background: #fff url(../img/img_upload.png) 0 -60px no-repeat; }
+.upload-image.default-skin .img-list li .zoom{ margin-top: 6px; cursor: pointer; width: 22px; height: 22px; background: #fff url(../img/img_upload.png) 0 -120px no-repeat; border-radius: 50%; }
+.upload-image.default-skin .img-list li .zoom:hover{ background: #fff url(../img/img_upload.png) 0 -100px no-repeat; }
 .upload-image.default-skin .img-list li .upload-progress { position: absolute; width: 100%; height: 100%; bottom: 0; left: 0; }
 .upload-image.default-skin .img-list li .upload-progress em { position: absolute; width: 68px; height: 68px; font-size: 13px; top: 0; left: 0; border-radius: 4px; background: rgba(0,0,0,.8); color: #fff; text-align: center; }
-.upload-image.default-skin .img-list li .upload-progress em .success{ display: block; width: 22px; height: 22px; margin: 12px auto 0; background: url(images/img_upload.png) 0 0 no-repeat; }
-.upload-image.default-skin .img-list li .upload-progress em .failed{ display: block; width: 22px; height: 22px; margin: 12px auto 0; background: url(images/img_upload.png) 0 -30px no-repeat; }
+.upload-image.default-skin .img-list li .upload-progress em .success{ display: block; width: 22px; height: 22px; margin: 12px auto 0; background: url(../img/img_upload.png) 0 0 no-repeat; }
+.upload-image.default-skin .img-list li .upload-progress em .failed{ display: block; width: 22px; height: 22px; margin: 12px auto 0; background: url(../img/img_upload.png) 0 -30px no-repeat; }
 .upload-image.default-skin .img-list li .upload-progress em p{ margin-top: 4px; }
 .upload-image.default-skin .img-list li .upload-progress span { transition: .2s; position: absolute; bottom: 0; display: block; width: 100%; height: 100%; background-color: rgba(50, 50, 50, .5); text-align: center; color: #FFF; font-size: 12px; }
 .upload-image.default-skin .img-list li .upload-progress .pecent{ position: absolute; z-index: 1; top: 0; left: 0; font-size: 13px; width: 60px; height: 40px; line-height: 40px; color: #fff; }

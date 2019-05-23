@@ -1,0 +1,126 @@
+﻿<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title></title>
+<link rel="stylesheet" href="css/style.css" type="text/css">
+<link rel="stylesheet" href="../css/jquery.imageUpload.css" type="text/css">
+<script type="text/javascript" src="lib/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="plugins/jquery.dragsort-0.5.2.js"></script>
+<script type="text/javascript" src="../js/jquery.imageUpload.min.js"></script>
+<script>
+$(function(){
+    $("#imgUpload").imageUpload({
+        uploadUrl: "${ctx}/home/gallery/uploadImage",
+        uploadName: "file",
+        selectMax: 7,
+        fileMax: 7,
+        imageInputName: "imagePath",
+        uploadSuccess: function($element, $content, $li){
+            $content.find('.img-list').dragsort("destroy");
+            $content.find('.img-list').dragsort({
+                dragSelector: "li .drag-wrapper",
+                placeHolderTemplate: "<li class='placeHolder'></li>",
+                dragSelectorExclude: "input, textarea, select"
+            });
+        }
+    });
+
+    $("#imgUpload2").imageUpload({
+        uploadUrl: "${ctx}/home/gallery/uploadImage",
+        uploadName: "file",
+        selectMax: 7,
+        fileMax: 7,
+        imageInputName: "imagePath",
+        description: {
+            enable: true,
+            descInputName: "description"
+        },
+        thumbnail: {
+            enable: true,
+		},
+        data: {
+            imageData: [
+                {
+                    namespace: "",
+                    path: "img/c1.jpg",
+					description: "这是第一张图片的简介"
+                },
+                {
+                    namespace: "",
+                    path: "img/c2.jpg",
+                    description: "这是第二张图片的简介"
+                }
+            ]
+        },
+        uploadSuccess: function($element, $content, $li){
+            $content.find('.img-list').dragsort("destroy");
+            $content.find('.img-list').dragsort({
+                dragSelector: "li .drag-wrapper",
+                placeHolderTemplate: "<li class='placeHolder'></li>",
+                dragSelectorExclude: "input, textarea, select"
+            });
+        }
+    });
+
+	$('.upload-image .img-list').dragsort("destroy");
+	$('.upload-image .img-list').dragsort({
+		dragSelector: "li .drag-wrapper",
+		placeHolderTemplate: "<li class='placeHolder'></li>",
+		dragSelectorExclude: "input, textarea, select"
+	});
+});
+
+function reinit(el){
+    $('#' + el).imageUpload("destroy").imageUpload({
+        uploadUrl: "${ctx}/home/gallery/uploadImage",
+        uploadName: "file",
+        selectMax: 7,
+        fileMax: 7,
+        imageInputName: "imagePath",
+        description: {
+            enable: false
+        },
+        uploadSuccess: function($element, $content, $li){
+            $content.find('.img-list').dragsort("destroy");
+            $content.find('.img-list').dragsort({
+                dragSelector: "li .drag-wrapper",
+                placeHolderTemplate: "<li class='placeHolder'></li>",
+                dragSelectorExclude: "input, textarea, select"
+            });
+        }
+    });
+}
+
+function destory(el){
+    $('#' + el).imageUpload("destroy");
+}
+</script>
+</head>
+
+<body>
+	<div class="container">
+		<form id="demo" class="demo" action="#" method="post">
+			<h1>Demo basic</h1>
+			<section>
+				<div id="imgUpload"></div>
+			</section>
+			<footer>
+				<button type="submit" class="button btn-primary btn-size-lg btn-width-md">上传图片</button>
+				<button type="button" class="button btn-grey btn-size-lg btn-width-md marginleft5" onclick="destory('imgUpload')">销毁</button>
+				<button type="button" class="button btn-green btn-size-lg btn-width-md marginleft5" onclick="reinit('imgUpload')">重新初始化</button>
+			</footer>
+		</form>
+
+		<form id="demo2" class="demo" action="#" method="post">
+			<h1>Demo data</h1>
+			<section>
+				<div id="imgUpload2"></div>
+			</section>
+			<footer>
+				<button type="submit" class="button btn-primary btn-size-lg btn-width-md">上传图片</button>
+			</footer>
+		</form>
+	</div>
+</body>
+</html>
